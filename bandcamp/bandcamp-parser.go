@@ -1,6 +1,7 @@
 package bandcamp
 
 import (
+	"arsene/objects"
 	"encoding/json"
 	"io"
 	"log"
@@ -19,25 +20,25 @@ func NewBandcampParser(albumURL string) *BandcampParser {
 	}
 }
 
-func (bcp *BandcampParser) ParseAlbum() *BandcampAlbumMetaInfoWithAlbumArtURL {
+func (bcp *BandcampParser) ParseAlbum() objects.AlbumMetaInfo {
 	bcp.albumPageSRC = bcp.albumPageSourceCode()
 
 	albumJSON := bcp.albumMetaInfoJSON()
 
-	return &BandcampAlbumMetaInfoWithAlbumArtURL{
-		BandcampAlbumMetaInfo: *bcp.AlbumMetainfo(albumJSON),
-		AlbumArtURL:           bcp.albumArtURL(),
-	}
+	bcAlbum := bcp.AlbumMetainfo(albumJSON)
+	albumArtURL := bcp.albumArtURL()
+
+	return convertBandcampAlbumIntoAlbum(bcAlbum, albumArtURL)
 }
 
-func (bcp *BandcampParser) AlbumMetainfo(albumJSON string) *BandcampAlbumMetaInfo {
+func (bcp *BandcampParser) AlbumMetainfo(albumJSON string) BandcampAlbumMetaInfo {
 	bcAlbum := &BandcampAlbumMetaInfo{}
 
 	if err := json.Unmarshal([]byte(albumJSON), bcAlbum); err != nil {
 		log.Fatal("failed to parse json into Bandcamp Album MetaInfo: ", err)
 	}
 
-	return bcAlbum
+	return *bcAlbum
 }
 
 func (bcp *BandcampParser) albumPageSourceCode() string {

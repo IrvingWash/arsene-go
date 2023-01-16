@@ -1,14 +1,14 @@
 package objects
 
-type AlbumMetainfo struct {
+type AlbumMetaInfo struct {
 	Title       string
 	Artist      string
 	ReleaseYear uint
-	Tracks      []TrackMetainfo
+	Tracks      []TrackMetaInfo
 	AlbumArtURL string
 }
 
-type TrackMetainfo struct {
+type TrackMetaInfo struct {
 	Title       string
 	TrackNumber uint
 	URL         string
