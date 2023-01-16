@@ -2,10 +2,9 @@ package albumdownloader
 
 import (
 	"arsene/objects"
+	"arsene/utils"
 	"fmt"
-	"io"
 	"log"
-	"net/http"
 	"os"
 )
 
@@ -29,31 +28,9 @@ func (ad *AlbumDownloader) DownloadAlbum() {
 	ad.downloadAlbumArt()
 
 	for _, track := range ad.album.Tracks {
-		out, err := os.Create(fmt.Sprintf("%s/%s", ad.path, makeTrackName(track)))
+		trackPath := fmt.Sprintf("%s/%s", ad.path, makeTrackName(track))
 
-		if err != nil {
-			log.Fatal("failed to create file: ", err)
-		}
-
-		defer out.Close()
-
-		resp, err := http.Get(track.URL)
-
-		if err != nil {
-			log.Fatal("failed to download track: ", err)
-		}
-
-		defer resp.Body.Close()
-
-		if resp.StatusCode != http.StatusOK {
-			log.Fatal("status is not ok: ", resp.Status)
-		}
-
-		_, err = io.Copy(out, resp.Body)
-
-		if err != nil {
-			log.Fatal("failed to write data: ", err)
-		}
+		utils.DownloadFile(track.URL, trackPath)
 	}
 }
 
@@ -74,31 +51,9 @@ func (ad *AlbumDownloader) createDownloadDir() {
 }
 
 func (ad *AlbumDownloader) downloadAlbumArt() {
-	out, err := os.Create(fmt.Sprintf("%s/cover.jpg", ad.path))
+	coverPath := fmt.Sprintf("%s/cover.jpg", ad.path)
 
-	if err != nil {
-		log.Fatal("failed to create file: ", err)
-	}
-
-	defer out.Close()
-
-	resp, err := http.Get(ad.album.AlbumArtURL)
-
-	if err != nil {
-		log.Fatal("failed to download album art: ", err)
-	}
-
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		log.Fatal("status is not ok: ", resp.Status)
-	}
-
-	_, err = io.Copy(out, resp.Body)
-
-	if err != nil {
-		log.Fatal("failed to write data: ", err)
-	}
+	utils.DownloadFile(ad.album.AlbumArtURL, coverPath)
 }
 
 func makeTrackName(track objects.TrackMetaInfo) string {

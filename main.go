@@ -10,7 +10,7 @@ func main() {
 
 	album := bcp.ParseAlbum()
 
-	albumDownloader := albumdownloader.NewAlbumDownloader(album, "~/Downloads")
+	albumDownloader := albumdownloader.NewAlbumDownloader(album, "./")
 
 	albumDownloader.DownloadAlbum()
 }
