@@ -10,6 +10,6 @@ type AlbumMetaInfo struct {
 
 type TrackMetaInfo struct {
 	Title       string
-	TrackNumber uint
+	TrackNumber string
 	URL         string
 }

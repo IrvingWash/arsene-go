@@ -1,8 +1,8 @@
 package main
 
 import (
+	albumdownloader "arsene/album-downloader"
 	"arsene/bandcamp"
-	"fmt"
 )
 
 func main() {
@@ -10,5 +10,7 @@ func main() {
 
 	album := bcp.ParseAlbum()
 
-	fmt.Println(album.ReleaseYear)
+	albumDownloader := albumdownloader.NewAlbumDownloader(album, "~/Downloads")
+
+	albumDownloader.DownloadAlbum()
 }

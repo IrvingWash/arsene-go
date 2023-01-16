@@ -35,9 +35,17 @@ func convertBandcampTracksIntoTracks(bcTracks []BandcampTrackInfo) []objects.Tra
 	var tracks []objects.TrackMetaInfo
 
 	for _, track := range bcTracks {
+		var trackNumber string
+
+		if track.Track_Num > 9 {
+			trackNumber = fmt.Sprint(track.Track_Num)
+		} else {
+			trackNumber = fmt.Sprintf("0%d", track.Track_Num)
+		}
+
 		tracks = append(tracks, objects.TrackMetaInfo{
 			Title:       track.Title,
-			TrackNumber: track.Track_Num,
+			TrackNumber: trackNumber,
 			URL:         track.File.MP3_128,
 		})
 	}
