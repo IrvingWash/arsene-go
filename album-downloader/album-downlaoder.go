@@ -27,11 +27,15 @@ func (ad *AlbumDownloader) DownloadAlbum() {
 
 	ad.downloadAlbumArt()
 
+	fmt.Printf("Started downloading to %s\n", ad.path)
+
 	for _, track := range ad.album.Tracks {
 		trackPath := fmt.Sprintf("%s/%s", ad.path, makeTrackName(track))
 
 		utils.DownloadFile(track.URL, trackPath)
 	}
+
+	fmt.Printf("Finished downloading")
 }
 
 func (ad *AlbumDownloader) makePath() string {
