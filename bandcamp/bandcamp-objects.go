@@ -1,6 +1,11 @@
 package bandcamp
 
-type BandcampAlbum struct {
+type BandcampAlbumMetaInfoWithAlbumArtURL struct {
+	BandcampAlbumMetaInfo
+	AlbumArtURL string
+}
+
+type BandcampAlbumMetaInfo struct {
 	Current   BandcampCurrent     `json:"current"`
 	HasAudio  bool                `json:"hasAudio"`
 	Artist    string              `json:"artist"`
