@@ -1,10 +1,11 @@
 package bandcamp
 
 import (
-	"arsene/objects"
 	"fmt"
 	"log"
 	"time"
+
+	"arsene/objects"
 )
 
 func convertBandcampAlbumIntoAlbum(bcAlbum BandcampAlbumMetaInfo, albumArtURL string) objects.AlbumMetaInfo {

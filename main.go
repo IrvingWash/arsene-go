@@ -10,5 +10,5 @@ func main() {
 
 	album := bcp.ParseAlbum()
 
-	fmt.Println(album)
+	fmt.Println(album.ReleaseYear)
 }
