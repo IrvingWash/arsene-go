@@ -18,5 +18,11 @@ func InputHandler() (url, downloadPath string) {
 		log.Fatal("Too few arguments. Use 'arsene' to see help")
 	}
 
-	return args[0], args[1]
+	path, err := AppendHomeDirIfNeeded(args[1])
+
+	if err != nil {
+		log.Fatal("Failed to parse path: ", err)
+	}
+
+	return args[0], path
 }
