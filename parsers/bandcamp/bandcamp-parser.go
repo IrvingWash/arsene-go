@@ -25,13 +25,13 @@ func (bcp *BandcampParser) ParseAlbum() objects.AlbumMetaInfo {
 
 	albumJSON := bcp.albumMetaInfoJSON()
 
-	bcAlbum := bcp.AlbumMetainfo(albumJSON)
+	bcAlbum := bcp.albumMetainfo(albumJSON)
 	albumArtURL := bcp.albumArtURL()
 
 	return convertBandcampAlbumIntoAlbum(bcAlbum, albumArtURL)
 }
 
-func (bcp *BandcampParser) AlbumMetainfo(albumJSON string) BandcampAlbumMetaInfo {
+func (bcp *BandcampParser) albumMetainfo(albumJSON string) BandcampAlbumMetaInfo {
 	bcAlbum := &BandcampAlbumMetaInfo{}
 
 	if err := json.Unmarshal([]byte(albumJSON), bcAlbum); err != nil {

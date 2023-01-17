@@ -2,16 +2,21 @@ package main
 
 import (
 	albumdownloader "arsene/album-downloader"
-	"arsene/bandcamp"
+	"arsene/parsers"
 	"arsene/utils"
+	"log"
 )
 
 func main() {
 	url, downloadPath := utils.InputHandler()
 
-	bcp := bandcamp.NewBandcampParser(url)
+	parser, err := parsers.ParserFactory(url)
 
-	album := bcp.ParseAlbum()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	album := parser.ParseAlbum()
 
 	albumDownloader := albumdownloader.NewAlbumDownloader(album, downloadPath)
 
