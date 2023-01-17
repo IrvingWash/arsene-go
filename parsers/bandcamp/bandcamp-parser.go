@@ -3,6 +3,7 @@ package bandcamp
 import (
 	"arsene/objects"
 	"encoding/json"
+	"html"
 	"io"
 	"log"
 	"net/http"
@@ -75,7 +76,7 @@ func (bcp *BandcampParser) albumMetaInfoJSON() string {
 
 	albumJSONTemp = albumJSONTemp[:albumJSONEndID]
 
-	return strings.ReplaceAll(albumJSONTemp, "&quot;", "\"")
+	return html.UnescapeString(albumJSONTemp)
 }
 
 func (bcp *BandcampParser) albumArtURL() string {
