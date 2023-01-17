@@ -9,7 +9,7 @@ import (
 func InputHandler() (url, downloadPath string) {
 	args := os.Args[1:]
 
-	if len(args) == 1 {
+	if len(args) == 0 {
 		fmt.Println("Usage: arsene bandcamp-url download-path")
 		os.Exit(0)
 	}
